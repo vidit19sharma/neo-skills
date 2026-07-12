@@ -1,0 +1,13 @@
+{
+  "name": "neo-skills",
+  "version": "1.0.0",
+  "description": "System design skills: a comprehensive architecture knowledge base (neo-system-design) plus opinionated defaults for small-scale projects (neo-system-design-lite).",
+  "author": {
+    "name": "Vidit Sharma",
+    "url": "https://github.com/vidit19sharma"
+  },
+  "homepage": "https://github.com/vidit19sharma/neo-skills",
+  "repository": "https://github.com/vidit19sharma/neo-skills",
+  "license": "MIT",
+  "keywords": ["system-design", "architecture", "distributed-systems", "skills", "agent-skills"]
+}

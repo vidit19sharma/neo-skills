@@ -1,0 +1,20 @@
+{
+  "name": "neo-skills",
+  "owner": {
+    "name": "Vidit Sharma"
+  },
+  "description": "System design skills for Claude Code, opencode, and any SKILL.md-compatible agent.",
+  "plugins": [
+    {
+      "name": "neo-skills",
+      "source": "./",
+      "description": "System design skills: a comprehensive architecture knowledge base (neo-system-design) plus opinionated defaults for small-scale projects (neo-system-design-lite).",
+      "version": "1.0.0",
+      "author": {
+        "name": "Vidit Sharma"
+      },
+      "license": "MIT",
+      "keywords": ["system-design", "architecture", "distributed-systems"]
+    }
+  ]
+}

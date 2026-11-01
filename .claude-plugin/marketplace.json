@@ -8,13 +8,21 @@
     {
       "name": "neo-skills",
       "source": "./",
-      "description": "System design skills: a comprehensive architecture knowledge base (neo-system-design) plus opinionated defaults for small-scale projects (neo-system-design-lite).",
-      "version": "1.0.0",
+      "description": "System design skills: a comprehensive architecture knowledge base (neo-system-design), opinionated defaults for small-scale projects (neo-system-design-lite), plus an animated GitHub profile README builder (neo-github-profile).",
+      "version": "1.1.0",
       "author": {
         "name": "Vidit Sharma"
       },
       "license": "MIT",
-      "keywords": ["system-design", "architecture", "distributed-systems"]
+      "keywords": [
+        "system-design",
+        "architecture",
+        "distributed-systems",
+        "github-profile",
+        "readme",
+        "svg-animation",
+        "github-pages"
+      ]
     }
   ]
 }

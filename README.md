@@ -8,6 +8,7 @@ System design skills for [Claude Code](https://docs.anthropic.com/en/docs/claude
 |---|---|---|
 | [`neo-system-design`](skills/neo-system-design/SKILL.md) | Comprehensive system design knowledge base: distributed systems, databases, caching, networking, security, cloud architecture, API design, microservices, decision frameworks, and real-world case studies. | Designing systems, reviewing architecture decisions, answering deep architecture questions, preparing for system design interviews. |
 | [`neo-system-design-lite`](skills/neo-system-design-lite/SKILL.md) | Opinionated system design for small-scale projects (1–10 engineers, <100K users, pre-Series A). Concrete defaults, not "it depends". | Building MVPs, indie SaaS, small team projects — shipping fast without over-engineering. |
+| [`neo-github-profile`](skills/neo-github-profile/SKILL.md) | Audits a GitHub profile, interviews you, and builds an animated profile README from real data: hero, neofetch card, contribution heatmap, ASCII portrait, project cards, plus a daily refresh Action. Shows a mockup before shipping, plus an optional interactive terminal site on GitHub Pages. | Upgrading a GitHub profile README, adding an animated heatmap or neofetch card, fixing pins and bio, making your GitHub look professional. |
 
 The two skills are complementary: **lite** tells you what to do; the **full** version explains the trade-off space when you outgrow the defaults.
 
@@ -57,6 +58,8 @@ Skills activate automatically when your request matches their description. You c
 
 > Use neo-system-design: design a URL shortener that handles 100M redirects/day.
 
+> Use neo-github-profile: audit github.com/<me> and show me mockups
+
 ## Repository layout
 
 ```
@@ -66,7 +69,12 @@ neo-skills/
 │   └── marketplace.json     # Claude Code marketplace manifest
 ├── skills/
 │   ├── neo-system-design/SKILL.md
-│   └── neo-system-design-lite/SKILL.md
+│   ├── neo-system-design-lite/SKILL.md
+│   └── neo-github-profile/
+│       ├── SKILL.md
+│       ├── references/      # audit, interview, design, README rules, recommendations
+│       ├── scripts/         # audit, data fetch, SVG renderers, README + mock builders
+│       └── templates/       # config, README, mock shell, workflows
 ├── install.sh
 └── LICENSE
 ```

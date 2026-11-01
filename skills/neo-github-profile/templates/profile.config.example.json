@@ -1,0 +1,61 @@
+{
+  "_help": {
+    "user": "GitHub login (required). Used for URLs, avatar fallback, snake + stats endpoints.",
+    "name": "Display name for hero, neofetch, about.",
+    "alias": "Short nickname/brand. Hero title bar is <first-name>@<alias>; masthead kicker is <ALIAS> / <LOCATION>.",
+    "handle_prompt": "Prompt shown in neofetch + heatmap, e.g. \"neo@github\". Default <user>@github.",
+    "tagline": "One line: hero `cat role.txt` output, masthead subtitle, neofetch Role (unless role is set).",
+    "role": "Optional short role for neofetch (≤26 chars shown). Falls back to tagline.",
+    "location": "City, country. Hero top-right, masthead kicker, neofetch, about.",
+    "site": "Personal site (with or without https://).",
+    "bio": "Optional about bullet (🌱 ...).",
+    "about": "Optional list of plain-text about bullets; replaces the derived ones when non-empty.",
+    "links": "Socials row: linkedin/x/website URLs, email address. Empty strings are skipped. links.terminal = URL of the Pages terminal, if built; adds About bullet, footer link and makes the stack icons open it with ?cmd=stack.",
+    "stack": "Tech names, in order. First 3 go into hero/masthead/neofetch; all go to the skillicons row.",
+    "projects": "Ordered; first 3 are featured (hero ls, masthead highlight, neofetch Building). owner defaults to user; demo enables Playwright thumbs; description overrides the repo description; shot_lines overrides the SVG thumb text (3-4 lines; '$ ' = command, '✓' = check, last line gets a cursor).",
+    "frames": "PNG paths (transparent bg) for render-ascii.py. Empty → ask the user; fallback https://github.com/<user>.png.",
+    "theme": "\"dark\" or \"light\" = that theme's assets only; \"both\" = <picture> dark/light for hero, ascii, neofetch, heatmap and stats (render each with --theme dark and --theme light).",
+    "sections": "hero: session|masthead|none · heatmap: square|glyph|none · stats: none|hosted (hosted endpoints are unreliable) · snake needs templates/snake.yml · the rest are booleans.",
+    "ascii": "render-ascii.py knobs: cols/rows of the grid, row = seconds per typed row, hold = seconds each frame stays."
+  },
+  "user": "octocat",
+  "name": "Mona Lisa Octocat",
+  "alias": "mona",
+  "handle_prompt": "mona@github",
+  "tagline": "building developer tools for Hello-World and Spoon-Knife",
+  "role": "Developer tooling",
+  "location": "San Francisco, US",
+  "site": "https://github.blog",
+  "bio": "TypeScript-first, Go when it has to be fast",
+  "about": [],
+  "links": {
+    "linkedin": "",
+    "x": "https://x.com/github",
+    "email": "octocat@github.com",
+    "website": "https://github.blog",
+    "terminal": ""
+  },
+  "stack": ["TypeScript", "Go", "Node.js", "Python", "Docker", "Git"],
+  "projects": [
+    { "repo": "Hello-World", "tags": ["CLI", "Starter"], "description": "My first repository on GitHub." },
+    { "repo": "Spoon-Knife", "tags": ["Forking", "Demo"], "demo": "", "shot_lines": ["$ git clone octocat/Spoon-Knife", "✓ forked 12k times", "✓ HTML · CSS", "spoon ›"] },
+    { "repo": "linguist", "owner": "github-linguist", "tags": ["Ruby", "Languages"] },
+    { "repo": "octocat.github.io", "tags": ["Pages"], "demo": "" }
+  ],
+  "frames": [],
+  "theme": "both",
+  "sections": {
+    "hero": "session",
+    "socials": true,
+    "ascii": true,
+    "neofetch": true,
+    "heatmap": "square",
+    "projects": true,
+    "stack": true,
+    "stats": "none",
+    "snake": false,
+    "activity": true,
+    "footer": true
+  },
+  "ascii": { "cols": 66, "rows": 48, "row": 0.07, "hold": 3.0 }
+}

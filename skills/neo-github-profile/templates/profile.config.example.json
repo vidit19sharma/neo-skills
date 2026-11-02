@@ -15,6 +15,7 @@
     "projects": "Ordered; first 3 are featured (hero ls, masthead highlight, neofetch Building). owner defaults to user; demo enables Playwright thumbs; description overrides the repo description; shot_lines overrides the SVG thumb text (3-4 lines; '$ ' = command, '✓' = check, last line gets a cursor).",
     "frames": "PNG paths (transparent bg) for render-ascii.py. Empty → ask the user; fallback https://github.com/<user>.png.",
     "theme": "\"dark\" or \"light\" = that theme's assets only; \"both\" = <picture> dark/light for hero, ascii, neofetch, heatmap and stats (render each with --theme dark and --theme light).",
+    "light_theme": "light | light-warm | light-cool — palette (scripts/_palettes.json) used whenever a -light asset is rendered. light = Primer, light-warm = Solarized paper, light-cool = Catppuccin Latte.",
     "sections": "hero: session|masthead|none · heatmap: square|glyph|none · stats: none|hosted (hosted endpoints are unreliable) · snake needs templates/snake.yml · the rest are booleans.",
     "ascii": "render-ascii.py knobs: cols/rows of the grid, row = seconds per typed row, hold = seconds each frame stays."
   },
@@ -44,6 +45,7 @@
   ],
   "frames": [],
   "theme": "both",
+  "light_theme": "light",
   "sections": {
     "hero": "session",
     "socials": true,

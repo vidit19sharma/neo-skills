@@ -31,7 +31,8 @@ Commands run from a working directory; `<skill>` is this skill's path. With `--o
 3. **Selftest.** Run `node <skill>/scripts/selftest.mjs` once per machine.
 4. **Build assets.** Pick a direction from `references/design-directions.md`, then:
    ```bash
-   for t in dark light; do   # theme "dark" only? skip light
+   LIGHT=$(node -p 'require("./profile.config.json").light_theme||"light"')
+   for t in dark "$LIGHT"; do   # theme "dark" only? skip light
      node <skill>/scripts/render-hero.mjs --config profile.config.json --template session --theme $t
      node <skill>/scripts/render-neofetch.mjs --config profile.config.json --data data/github.json --audit data/audit.json --theme $t
      node <skill>/scripts/render-heatmap.mjs --data data/github.json --style square --theme $t
@@ -63,7 +64,8 @@ GitHub sanitizer details are in `references/github-readme-rules.md`.
 |---|---|---|---|
 | Audit | `audit.mjs` | `--user` | `data/audit.json` |
 | Contribution data | `fetch-contributions.mjs` | `--user` | `data/github.json` |
-| Heatmap | `render-heatmap.mjs` | `--data --style square\|glyph --theme dark\|light --prompt` (default `<user>@github`) | `assets/heatmap-<theme>.svg`; glyph: `assets/heatmap-glyph-<theme>.svg` |
+| Heatmap | `render-heatmap.mjs` | `--data --style square\|glyph --theme --prompt` (default `<user>@github`) | `assets/heatmap[-glyph]-<dark\|light>.svg` |
+| Palettes | `scripts/_palettes.json` | `--theme dark\|light\|light-warm\|light-cool`; any light writes `-light` | config `light_theme` |
 | ASCII portrait | `render-ascii.py` | `--config` (or PNGs) `--theme` `--cols --rows --row --hold` | `assets/ascii-portrait[-light].svg` |
 | Hero | `render-hero.mjs` | `--config --template session\|masthead --theme` | `assets/hero[-light].svg` |
 | Neofetch card | `render-neofetch.mjs` | `--config --data --audit --theme` | `assets/neofetch[-light].svg` |
@@ -91,7 +93,7 @@ GitHub sanitizer details are in `references/github-readme-rules.md`.
 - Playwright MCP blocks `file://`. Serve with `python3 -m http.server`.
 - Playwright defaults to light. With `theme: both`, screenshot both schemes (`--color-scheme`).
 - macOS filesystems are case-insensitive: if the profile repo already has `Assets/`, a plain `git add` files the new `assets/` under the old name and every README link breaks on GitHub. Stage the lowercase paths explicitly (`git update-index --add --cacheinfo`) or rename the old directory first.
-- Verify on github.com itself after shipping, not only the mock: a hosted widget that worked in the mock returned 503 on launch day, and skillicons renders unknown ids as blank slots.
+- Verify on github.com after shipping, not only the mock: hosted widgets fail on launch day and skillicons renders unknown ids blank.
 
 ## Red flags
 

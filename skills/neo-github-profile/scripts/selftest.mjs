@@ -4,7 +4,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { mkdirSync, rmSync, writeFileSync, readFileSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { SKILL, TEMPLATES } from "./_lib.mjs";
+import { SKILL, TEMPLATES, PALETTES } from "./_lib.mjs";
 
 if (process.argv.includes("--help")) { console.log("Usage: node selftest.mjs   (offline; writes to $TMPDIR/neo-github-profile-selftest/)"); process.exit(0); }
 const T = join(tmpdir(), "neo-github-profile-selftest");
@@ -109,10 +109,34 @@ check("site missing --ascii", () => {
   return JSON.stringify(konst("site/noascii.html", "FRAMES")) === "[]" ? null : "FRAMES not []";
 });
 
-// Themes: light differs from dark only in colours (fill/stroke attrs, hex values, data-theme).
-const strip = (f) => readFileSync(join(T, f), "utf8").replace(/\s(fill|stroke)="[^"]*"/g, "").replace(/#[0-9a-fA-F]{6}\b/g, "").replace(/\sdata-theme="\w+"/, "");
-for (const [d, l] of [["assets/hero.svg", "assets/hero-light.svg"], ["assets/neofetch.svg", "assets/neofetch-light.svg"], ...(hasPIL ? [["assets/ascii-portrait.svg", "assets/ascii-portrait-light.svg"]] : [])])
-  check(`theme pair ${l.slice(7, -10)}`, () => readFileSync(join(T, d), "utf8") === readFileSync(join(T, l), "utf8") ? "light == dark" : strip(d) === strip(l) ? null : "light differs beyond colours");
+// Light palettes: same content as dark, own data-theme, tinted card, readable green.
+const lum = (h) => { const c = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+const txt = (f) => readFileSync(join(T, f), "utf8");
+const asciiRows = (x) => [...x.matchAll(/<text class="k[^>]*>(.*?)<\/text>/g)].map((m) => m[1].replace(/<[^>]+>/g, ""));
+const nfLabels = (x) => [...x.matchAll(/<text x="16" y="\d+" fill="[^"]+">(\w+)<\/text>/g)].map((m) => m[1]);
+for (const name of Object.keys(PALETTES).filter((n) => n !== "dark")) {
+  check(`light palette ${name}`, () => {
+    const K = PALETTES[name], d = join("assets", name);
+    const r = [
+      run(`hero ${name}`, "render-hero.mjs", ["--config", "profile.config.json", "--theme", name, "--out", `${d}/hero-light.svg`]),
+      run(`neofetch ${name}`, "render-neofetch.mjs", ["--config", "profile.config.json", "--data", "data/github.json", "--theme", name, "--out", `${d}/neofetch-light.svg`]),
+      run(`heatmap ${name}`, "render-heatmap.mjs", ["--data", "data/github.json", "--theme", name, "--out", `${d}/heatmap-light.svg`]),
+    ];
+    if (r.includes(false)) return "render failed";
+    const files = ["hero", "neofetch", "heatmap"].map((n) => `${d}/${n}-light.svg`);
+    if (hasPIL) { execFileSync("python3", [join(SKILL, "scripts/render-ascii.py"), "--config", "profile.config.json", "--theme", name, "--out", `${d}/ascii-portrait-light.svg`], { cwd: T, stdio: "pipe" }); files.push(`${d}/ascii-portrait-light.svg`); }
+    for (const f of files) artifacts.push([`${name} ${f.split("/").pop()}`, f]);
+    const bad = files.find((f) => !txt(f).match(/<svg\b[^>]*>/)[0].includes(`data-theme="${name}"`));
+    if (bad) return `${bad}: no data-theme="${name}"`;
+    if (hasPIL && JSON.stringify(asciiRows(txt(`${d}/ascii-portrait-light.svg`))) !== JSON.stringify(asciiRows(txt("assets/ascii-portrait.svg")))) return "ascii rows differ from dark";
+    const nl = nfLabels(txt(`${d}/neofetch-light.svg`));
+    if (!nl.length || JSON.stringify(nl) !== JSON.stringify(nfLabels(txt("assets/neofetch.svg")))) return `neofetch labels differ: ${nl}`;
+    if (K.card.toLowerCase() === "#ffffff") return "card is pure white";
+    const cr = ratio(K.ac, K.card);
+    return cr < 4.5 ? `ac on card ${cr.toFixed(2)}:1 < 4.5` : null;
+  });
+}
 check("neofetch languages", () => {
   const x = readFileSync(join(T, "assets/neofetch.svg"), "utf8");
   return !x.includes(">Languages<") ? "no Languages row" : !["TypeScript", "Go", "Shell"].every((n) => x.includes(n)) ? "missing language names" :

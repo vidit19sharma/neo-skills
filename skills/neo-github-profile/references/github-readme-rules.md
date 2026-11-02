@@ -10,6 +10,8 @@
 
 Every self-rendered asset (hero, ASCII, neofetch, heatmap) needs both sources; a bare dark `<img>` stays dark in light mode.
 
+Light cards need a tinted body + titlebar; pure white on white disappears.
+
 ```html
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero.svg">

@@ -1,6 +1,6 @@
 {
   "name": "neo-skills",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "System design skills: a comprehensive architecture knowledge base (neo-system-design), opinionated defaults for small-scale projects (neo-system-design-lite), plus an animated GitHub profile README builder (neo-github-profile).",
   "author": {
     "name": "Vidit Sharma",

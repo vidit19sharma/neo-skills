@@ -38,6 +38,16 @@ Dark: `#0d1117` bg, `#161b22` surface, `#30363d` border, `#e6edf3` text, `#7d859
 
 Light heatmap scale: `#ebedf0` `#9be9a8` `#40c463` `#30a14e` `#216e39`.
 
+All colours live in `scripts/_palettes.json`; never inline hex in a renderer.
+
+### Light palettes
+
+Set `light_theme` in the config. Every light card gets a tinted body, a titlebar strip, a 1 px border and ≥ 4.5:1 green text; bright green is for cursors, cells and bars only.
+
+- `light` (Primer, default): `#f6f8fa` cards, `#1a7f37` prompt. Blends with GitHub's own chrome; the safe pick.
+- `light-warm` (Solarized): `#fdf6e3` paper cards, olive `#3d6b16` prompt. Pick for a warm, printed, editorial feel.
+- `light-cool` (Latte): `#eff1f5` lavender-grey cards, `#2e7d32` prompt. Pick when the user likes Catppuccin.
+
 ## Animation rules
 
 - SMIL or CSS inside the SVG only. No JS.
